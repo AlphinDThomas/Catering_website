@@ -1,8 +1,59 @@
 .services-page-header {
+  position: relative;
   text-align: center;
-  padding: 80px 0 60px;
-  background: var(--surface-container-low);
-  border-bottom: 1px solid var(--outline-variant);
+  padding: 0;
+  background: #1c1c17;
+  border-bottom: none;
+  overflow: hidden;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.services-page-header__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.services-page-header__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.services-page-header__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(28, 28, 23, 0.35) 0%,
+    rgba(28, 28, 23, 0.55) 100%
+  );
+}
+
+.services-page-header__content {
+  position: relative;
+  z-index: 1;
+  padding: 120px 0 100px;
+}
+
+.services-page-header .page-header__eyebrow {
+  color: var(--color-gold);
+}
+
+.services-page-header .page-header__title {
+  color: #ffffff;
+}
+
+.services-page-header .page-header__sub {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.services-page-header .divider-center {
+  background-color: var(--color-gold);
 }
 
 /* ── Service Detail ──────────────────────────────────────── */

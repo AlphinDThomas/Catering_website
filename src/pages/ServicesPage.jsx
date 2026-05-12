@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { services, comparisonFeatures } from '../data/services'
 import { galleryImages } from '../data/testimonials'
 import Modal from '../components/Modal'
+import heroImg from '../assets/vinebench.png'
 import './ServicesPage.css'
 
 function GalleryLightbox({ images, startIdx, onClose }) {
@@ -56,7 +57,11 @@ export default function ServicesPage() {
     <main className="page services-page">
       {/* ── Page Header ──────────────────────────────────────── */}
       <section className="page-header services-page-header">
-        <div className="container">
+        <div className="services-page-header__bg" aria-hidden="true">
+          <img src={heroImg} alt="" className="services-page-header__img" />
+          <div className="services-page-header__overlay" />
+        </div>
+        <div className="container services-page-header__content">
           <span className="label-caps page-header__eyebrow">What We Offer</span>
           <h1 className="headline-lg page-header__title">Bespoke Culinary Artistry</h1>
           <div className="divider divider-center" />
