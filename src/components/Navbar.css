@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: var(--z-nav);
+  z-index: 1001;
   height: 80px;
   background: transparent;
   transition: background var(--transition-base), backdrop-filter var(--transition-base),
@@ -176,8 +176,9 @@
   position: fixed;
   inset: 0;
   background: rgba(28, 28, 23, 0.4);
-  z-index: calc(var(--z-nav) - 1);
+  z-index: 999;
   backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 /* ── Drawer ───────────────────────────────────────────────── */
@@ -188,13 +189,15 @@
   bottom: 0;
   width: min(320px, 90vw);
   background: var(--surface-container-lowest);
-  z-index: var(--z-nav);
+  z-index: 1000;
   padding: 100px 32px 40px;
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
   transition: transform var(--transition-slow);
   box-shadow: -4px 0 32px rgba(28, 28, 23, 0.12);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .navbar__drawer--open {

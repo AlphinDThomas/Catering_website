@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { useApp } from '../store/AppContext'
 import './Navbar.css'
@@ -52,98 +53,106 @@ export default function Navbar() {
   ]
 
   return (
-    <header className={`navbar${isScrolled ? ' navbar--scrolled' : ''}`} role="banner">
-      <div className="navbar__inner container">
-        {/* Logo */}
-        <Link to="/" className="navbar__logo" aria-label="AURORE home">
-          AURORE
-        </Link>
+    <>
+      <header className={`navbar${isScrolled ? ' navbar--scrolled' : ''}`} role="banner">
+        <div className="navbar__inner container">
+          {/* Logo */}
+          <Link to="/" className="navbar__logo" aria-label="AURORE home">
+            AURORE
+          </Link>
 
-        {/* Desktop Nav */}
-        <nav className="navbar__links" aria-label="Main navigation">
-          {navLinks.map(({ to, label, end }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={end}
-              className={({ isActive }) => `navbar__link${isActive ? ' navbar__link--active' : ''}`}
+          {/* Desktop Nav */}
+          <nav className="navbar__links" aria-label="Main navigation">
+            {navLinks.map(({ to, label, end }) => (
+              <NavLink
+                key={to}
+                to={to}
+                end={end}
+                className={({ isActive }) => `navbar__link${isActive ? ' navbar__link--active' : ''}`}
+              >
+                {label}
+              </NavLink>
+            ))}
+          </nav>
+
+          {/* Desktop CTA */}
+          <div className="navbar__actions">
+            <button
+              id="nav-wishlist-btn"
+              className="navbar__wishlist"
+              onClick={() => navigate('/menus')}
+              aria-label={`Menu wishlist, ${state.wishlist.length} items`}
             >
-              {label}
-            </NavLink>
-          ))}
-        </nav>
+              <span className="material-icons">favorite_border</span>
+              {state.wishlist.length > 0 && (
+                <span className="navbar__badge" aria-hidden="true">{state.wishlist.length}</span>
+              )}
+            </button>
+            <button
+              id="nav-quote-btn"
+              className="btn btn-primary btn-sm"
+              onClick={() => navigate('/book')}
+            >
+              Request Quote
+            </button>
+          </div>
 
-        {/* Desktop CTA */}
-        <div className="navbar__actions">
+          {/* Mobile Hamburger */}
           <button
-            id="nav-wishlist-btn"
-            className="navbar__wishlist"
-            onClick={() => navigate('/menus')}
-            aria-label={`Menu wishlist, ${state.wishlist.length} items`}
+            id="nav-hamburger-btn"
+            className={`navbar__hamburger${mobileOpen ? ' navbar__hamburger--open' : ''}`}
+            onClick={() => setMobileOpen(o => !o)}
+            aria-expanded={mobileOpen}
+            aria-label="Toggle navigation menu"
           >
-            <span className="material-icons">favorite_border</span>
-            {state.wishlist.length > 0 && (
-              <span className="navbar__badge" aria-hidden="true">{state.wishlist.length}</span>
-            )}
+            <span />
+            <span />
+            <span />
           </button>
+        </div>
+      </header>
+
+      {/* Mobile Overlay — portaled to body to escape header stacking context */}
+      {mobileOpen && createPortal(
+        <div className="navbar__overlay" aria-hidden="true" onClick={() => setMobileOpen(false)} />,
+        document.body
+      )}
+
+      {/* Mobile Drawer — portaled to body to escape header stacking context */}
+      {createPortal(
+        <div
+          ref={drawerRef}
+          className={`navbar__drawer${mobileOpen ? ' navbar__drawer--open' : ''}`}
+          aria-hidden={!mobileOpen}
+        >
+          <nav aria-label="Mobile navigation">
+            {navLinks.map(({ to, label, end }) => (
+              <NavLink
+                key={to}
+                to={to}
+                end={end}
+                className={({ isActive }) => `navbar__drawer-link${isActive ? ' navbar__drawer-link--active' : ''}`}
+              >
+                {label}
+              </NavLink>
+            ))}
+          </nav>
           <button
-            id="nav-quote-btn"
-            className="btn btn-primary btn-sm"
-            onClick={() => navigate('/book')}
+            id="nav-mobile-quote-btn"
+            className="btn btn-primary"
+            onClick={() => { navigate('/book'); setMobileOpen(false) }}
+            style={{ marginTop: 32, width: '100%' }}
           >
             Request Quote
           </button>
-        </div>
-
-        {/* Mobile Hamburger */}
-        <button
-          id="nav-hamburger-btn"
-          className={`navbar__hamburger${mobileOpen ? ' navbar__hamburger--open' : ''}`}
-          onClick={() => setMobileOpen(o => !o)}
-          aria-expanded={mobileOpen}
-          aria-label="Toggle navigation menu"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </div>
-
-      {/* Mobile Overlay */}
-      {mobileOpen && <div className="navbar__overlay" aria-hidden="true" />}
-
-      {/* Mobile Drawer */}
-      <div
-        ref={drawerRef}
-        className={`navbar__drawer${mobileOpen ? ' navbar__drawer--open' : ''}`}
-        aria-hidden={!mobileOpen}
-      >
-        <nav aria-label="Mobile navigation">
-          {navLinks.map(({ to, label, end }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={end}
-              className={({ isActive }) => `navbar__drawer-link${isActive ? ' navbar__drawer-link--active' : ''}`}
-            >
-              {label}
-            </NavLink>
-          ))}
-        </nav>
-        <button
-          id="nav-mobile-quote-btn"
-          className="btn btn-primary"
-          onClick={() => { navigate('/book'); setMobileOpen(false) }}
-          style={{ marginTop: 32, width: '100%' }}
-        >
-          Request Quote
-        </button>
-        {state.wishlist.length > 0 && (
-          <p className="navbar__drawer-wishlist" onClick={() => { navigate('/menus'); setMobileOpen(false) }}>
-            ♡ {state.wishlist.length} menu item{state.wishlist.length !== 1 ? 's' : ''} saved
-          </p>
-        )}
-      </div>
-    </header>
+          {state.wishlist.length > 0 && (
+            <p className="navbar__drawer-wishlist" onClick={() => { navigate('/menus'); setMobileOpen(false) }}>
+              ♡ {state.wishlist.length} menu item{state.wishlist.length !== 1 ? 's' : ''} saved
+            </p>
+          )}
+        </div>,
+        document.body
+      )}
+    </>
   )
 }
