@@ -4,6 +4,7 @@ import { AppProvider } from './store/AppContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ToastContainer from './components/Toast'
+import LoadingScreen from './components/LoadingScreen'
 
 import HomePage         from './pages/HomePage'
 import MenuPage         from './pages/MenuPage'
@@ -29,6 +30,7 @@ function AppRoutes() {
   return (
     <>
       <ScrollToTop />
+      <LoadingScreen />
       <Navbar />
       <Routes>
         <Route path="/"            element={<HomePage />} />
