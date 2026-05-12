@@ -1,0 +1,322 @@
+.services-page-header {
+  text-align: center;
+  padding: 80px 0 60px;
+  background: var(--surface-container-low);
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+/* ── Service Detail ──────────────────────────────────────── */
+.service-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding-block: 100px;
+  border-bottom: 1px solid var(--outline-variant);
+}
+
+.service-detail--reverse {
+  direction: rtl;
+}
+
+.service-detail--reverse > * {
+  direction: ltr;
+}
+
+.service-detail__img-col {
+  position: relative;
+}
+
+.service-detail__img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.service-detail__img-accent {
+  position: absolute;
+  inset: -16px;
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  border-radius: var(--radius-md);
+  z-index: -1;
+}
+
+.service-detail__label {
+  color: var(--color-gold);
+  display: block;
+  margin-bottom: 16px;
+}
+
+.service-detail__title {
+  margin-bottom: 8px;
+}
+
+.service-detail__desc {
+  margin-bottom: 32px;
+}
+
+/* ── Features ────────────────────────────────────────────── */
+.service-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.service-features__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.service-features__check {
+  color: var(--color-gold);
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Pricing Tiers ───────────────────────────────────────── */
+.service-tiers {
+  background: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.service-tiers__title {
+  color: var(--on-surface-variant);
+  margin-bottom: 16px;
+  font-size: 0.6rem;
+}
+
+.service-tiers__grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.service-tier-card {
+  flex: 1;
+  min-width: 100px;
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+}
+
+.service-tier-card__name {
+  font-size: 0.6rem;
+  color: var(--on-surface-variant);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.service-tier-card__guests {
+  color: var(--on-surface-variant);
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.service-tier-card__price {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-gold);
+}
+
+.service-tier-card__price .label-caps {
+  font-size: 0.6rem;
+  color: var(--on-surface-variant);
+}
+
+/* ── Comparison Table ────────────────────────────────────── */
+.comparison-section {
+  padding-block: 64px;
+  border-top: 1px solid var(--outline-variant);
+}
+
+.comparison-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.comparison-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--outline-variant);
+  animation: fadeInUp 0.3s ease;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 14px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--outline-variant);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+}
+
+.comparison-table th {
+  background: var(--surface-container);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-surface-variant);
+}
+
+.comparison-table__feature-col {
+  text-align: left !important;
+  width: 40%;
+}
+
+.comparison-table__feature {
+  text-align: left;
+  color: var(--on-surface);
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table tr:nth-child(even) {
+  background: var(--surface-container-low);
+}
+
+.comparison-check { color: #2e7d4f; font-size: 20px; }
+.comparison-cross  { color: var(--outline); font-size: 20px; }
+
+/* ── Gallery ─────────────────────────────────────────────── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.gallery-item {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  width: 100%;
+}
+
+.gallery-item__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.gallery-item:hover .gallery-item__img {
+  transform: scale(1.06);
+}
+
+.gallery-item__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 28, 23, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  color: white;
+}
+
+.gallery-item:hover .gallery-item__overlay {
+  opacity: 1;
+}
+
+.gallery-item__icon { font-size: 28px; }
+.gallery-item__caption { font-size: 0.6rem; }
+
+/* ── Lightbox ────────────────────────────────────────────── */
+.lightbox-body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.lightbox-img {
+  width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
+.lightbox-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--outline-variant);
+  border-radius: var(--radius-full);
+  color: var(--on-surface-variant);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.lightbox-arrow:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.lightbox-caption {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  color: var(--on-surface-variant);
+  font-size: 0.6rem;
+}
+
+/* ── CTA Banner ──────────────────────────────────────────── */
+.services-cta-banner {
+  text-align: center;
+  padding: 80px 0 100px;
+}
+
+.services-cta-banner__eyebrow {
+  color: var(--color-gold);
+  display: block;
+  margin-bottom: 16px;
+}
+
+.services-cta-banner__title {
+  margin-bottom: 32px;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .service-detail {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding-block: 64px;
+  }
+  .service-detail--reverse { direction: ltr; }
+  .service-features { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+  .service-tiers__grid { flex-direction: column; }
+}
