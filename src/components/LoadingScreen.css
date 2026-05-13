@@ -1,5 +1,5 @@
 /* =============================================
-   LOADING SCREEN — Cloche Dome Reveal
+   LOADING SCREEN — Ring Trace Reveal
    ============================================= */
 
 /* ── Container ─────────────────────────────── */
@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #09080A;
   transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
@@ -19,222 +20,146 @@
   pointer-events: none;
 }
 
-/* ── Main Box ──────────────────────────────── */
-.al-box {
-  min-height: 100vh;
-  width: 100%;
-  background: #080604;
+/* ── Loader ─────────────────────────────────── */
+.al-loader {
+  position: relative;
+  width: 300px;
+  height: 300px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  position: relative;
 }
 
-.al-spot {
+/* ── Ring SVG ───────────────────────────────── */
+.al-ring-svg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse 56% 50% at 50% 42%,
-    rgba(192, 152, 55, 0.1) 0%,
-    transparent 68%
-  );
-  pointer-events: none;
+  width: 100%;
+  height: 100%;
 }
 
-/* ── Scene ─────────────────────────────────── */
-.al-scene {
+.al-ring-ghost {
+  fill: none;
+  stroke: rgba(191, 162, 112, 0.1);
+  stroke-width: 0.7;
+}
+
+.al-ring-trace {
+  fill: none;
+  stroke: #BFA270;
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  stroke-dasharray: 816.81;
+  stroke-dashoffset: 816.81;
+  animation: al-trace 2.4s cubic-bezier(0.37, 0, 0.63, 1) 0.3s forwards;
+}
+
+/* ── Diamond Marks ─────────────────────────── */
+.al-mark {
+  opacity: 0;
+  animation: al-markIn 0.5s ease 2.5s forwards;
+}
+
+/* ── Center Text ───────────────────────────── */
+.al-text-center {
+  position: relative;
+  text-align: center;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  animation: al-in 0.65s ease both;
 }
 
-/* ── Dome ──────────────────────────────────── */
-.al-dome {
-  animation: al-dome 2.1s cubic-bezier(0.22, 0.48, 0.38, 0.96) 0.7s both;
-}
-
-/* ── Steam Wisps ───────────────────────────── */
-.al-w {
-  opacity: 0;
-}
-.al-w1 { animation: al-steam 2.9s ease-in infinite 2.55s; }
-.al-w2 { animation: al-steam 2.9s ease-in infinite 2.88s; }
-.al-w3 { animation: al-steam 2.9s ease-in infinite 3.14s; }
-.al-w4 { animation: al-steam 2.9s ease-in infinite 2.71s; }
-
-/* ── Glow ──────────────────────────────────── */
-.al-glow {
-  opacity: 0;
-  animation: al-fade 1.3s ease 2.25s both;
-}
-
-/* ── Title ─────────────────────────────────── */
-.al-title {
+.al-brand {
   font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
-  font-size: 36px;
-  font-weight: 400;
-  letter-spacing: 0.58em;
-  padding-right: 0.58em;
-  color: #c8a448;
-  text-shadow: 0 0 50px rgba(200, 164, 72, 0.18);
+  font-size: 28px;
+  font-weight: normal;
+  letter-spacing: 0.42em;
+  color: #EDE7DC;
   opacity: 0;
-  animation: al-title 1.4s ease 2.85s both;
   text-transform: uppercase;
-  margin-top: 15px;
+  margin-right: -0.42em;
+  animation: al-fadeRise 1.1s ease 0.7s forwards;
 }
 
-/* ── Subtitle ──────────────────────────────── */
-.al-sub {
+.al-gold-rule {
+  width: 28px;
+  height: 0.5px;
+  background: #BFA270;
+  margin: 9px 0;
+  opacity: 0;
+  animation: al-fadeIn 0.8s ease 1.3s forwards;
+}
+
+.al-tagline {
   font-family: 'Palatino Linotype', Palatino, Georgia, serif;
-  font-size: 9.5px;
-  letter-spacing: 0.36em;
-  padding-right: 0.36em;
-  color: rgba(192, 148, 55, 0.48);
+  font-size: 7.5px;
+  letter-spacing: 0.28em;
+  color: #BFA270;
   opacity: 0;
-  animation: al-fade 1s ease 3.65s both;
   text-transform: uppercase;
-  margin-top: 11px;
+  margin-right: -0.28em;
+  animation: al-fadeIn 0.8s ease 1.6s forwards;
 }
 
-/* ── Progress Bar ──────────────────────────── */
-.al-bar {
-  width: 155px;
-  height: 1px;
-  background: rgba(192, 148, 55, 0.12);
-  margin-top: 32px;
-  opacity: 0;
-  animation: al-fade 0.4s ease 3.45s both;
-  position: relative;
-  overflow: hidden;
+/* ── Page-transition variant (faster) ──────── */
+.al-container--transition .al-ring-trace {
+  animation: al-trace 1.2s cubic-bezier(0.37, 0, 0.63, 1) 0.15s forwards;
 }
 
-.al-fill {
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(188, 146, 52, 0.28) 0%,
-    #c8a448 50%,
-    #edcf6e 82%,
-    #c8a448 100%
-  );
-  width: 0;
-  animation: al-fill 3.8s cubic-bezier(0.28, 0, 0.18, 1) 3.65s forwards;
-  position: relative;
-  overflow: hidden;
+.al-container--transition .al-mark {
+  animation: al-markIn 0.35s ease 1.2s forwards;
 }
 
-.al-shine {
-  position: absolute;
-  top: 0;
-  left: -58%;
-  width: 48%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 238, 128, 0.72),
-    transparent
-  );
-  animation: al-shine 2.2s ease 5.3s infinite;
+.al-container--transition .al-brand {
+  animation: al-fadeRise 0.7s ease 0.35s forwards;
 }
 
-/* ── Page-transition variant (faster, same cloche) ── */
-.al-container--transition .al-scene {
-  animation: al-in 0.4s ease both;
+.al-container--transition .al-gold-rule {
+  animation: al-fadeIn 0.5s ease 0.65s forwards;
 }
 
-.al-container--transition .al-dome {
-  animation: al-dome 1s cubic-bezier(0.22, 0.48, 0.38, 0.96) 0.3s both;
-}
-
-.al-container--transition .al-w1 { animation: al-steam 2.4s ease-in infinite 1.2s; }
-.al-container--transition .al-w2 { animation: al-steam 2.4s ease-in infinite 1.4s; }
-.al-container--transition .al-w3 { animation: al-steam 2.4s ease-in infinite 1.5s; }
-.al-container--transition .al-w4 { animation: al-steam 2.4s ease-in infinite 1.3s; }
-
-.al-container--transition .al-glow {
-  animation: al-fade 0.8s ease 1s both;
-}
-
-.al-container--transition .al-title {
-  animation: al-title 0.8s ease 1.3s both;
-}
-
-.al-container--transition .al-sub {
-  animation: al-fade 0.6s ease 1.6s both;
-}
-
-.al-container--transition .al-bar {
-  animation: al-fade 0.3s ease 1.5s both;
-}
-
-.al-container--transition .al-fill {
-  animation: al-fill 1.6s cubic-bezier(0.28, 0, 0.18, 1) 1.6s forwards;
-}
-
-.al-container--transition .al-shine {
-  animation: al-shine 1.8s ease 2.5s infinite;
+.al-container--transition .al-tagline {
+  animation: al-fadeIn 0.5s ease 0.8s forwards;
 }
 
 /* ── Keyframes ─────────────────────────────── */
-@keyframes al-in {
-  from { opacity: 0; transform: translateY(9px); }
+@keyframes al-trace {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes al-fadeRise {
+  from { opacity: 0; transform: translateY(5px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes al-dome {
-  0%   { transform: translateY(0); }
-  100% { transform: translateY(-130px); }
+@keyframes al-fadeIn {
+  to { opacity: 1; }
 }
 
-@keyframes al-steam {
-  0%   { opacity: 0; transform: translateY(0) scaleX(1); }
-  18%  { opacity: 0.76; }
-  78%  { opacity: 0.3; }
-  100% { opacity: 0; transform: translateY(-70px) scaleX(1.4); }
-}
-
-@keyframes al-fade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-@keyframes al-title {
-  0%   { opacity: 0; transform: translateY(7px); filter: blur(8px); }
-  100% { opacity: 1; transform: translateY(0);   filter: blur(0); }
-}
-
-@keyframes al-fill {
-  0%   { width: 0%; }
-  100% { width: 100%; }
-}
-
-@keyframes al-shine {
-  0%   { left: -58%; }
-  100% { left: 110%; }
+@keyframes al-markIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 /* ── Responsive ────────────────────────────── */
 @media (max-width: 480px) {
-  .al-title {
-    font-size: 26px;
-    letter-spacing: 0.42em;
-    padding-right: 0.42em;
+  .al-loader {
+    width: 240px;
+    height: 240px;
   }
 
-  .al-sub {
-    font-size: 8px;
+  .al-brand {
+    font-size: 22px;
+    letter-spacing: 0.36em;
+    margin-right: -0.36em;
   }
 
-  .al-bar {
-    width: 120px;
+  .al-tagline {
+    font-size: 6.5px;
   }
 
-  .al-scene svg {
-    width: 220px;
-    height: auto;
+  .al-gold-rule {
+    width: 22px;
   }
 }
